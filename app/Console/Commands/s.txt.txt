@@ -1,0 +1,152 @@
+SELECT
+	'active' as Active_Inactive,
+    CLIENT_ID,
+    SEX,
+    BIRTH_DATE,
+    MARITAL_STATUS,
+    NATIONALITY,
+    RESIDENTIAL_STATUS,
+    CATEGORY,
+    MOBILE_NO,
+    EMAIL_ID,
+    CITY,
+    STATE,
+    COUNTRY,
+    PIN_CODE,
+    RESI_ADDRESS,
+    OCCUPATION,
+    OCCUPATION_field,
+    ANNUAL_INCOME,
+    PAN_NO,
+    PASSPORT_NO,
+    PASSPORT_EXPIRY_DATE,
+    PASSPORT_ISSUED_PLACE,
+    DRIVING_LICENSE,
+    DRIVING_LICENSE_ISSUED_DATE,
+    DRIVING_LICENSE_ISSUED_PLACE,
+    Net_Worth,
+    Net_Worth_Date,
+    PORTFOLIO_MKT_VALUE,
+    OTHER_BROKER,
+    Fatca_Country,
+    Fatca_Declaration,
+    Fatca_Date,
+    NRI_TYPE,
+    NRI_PSI_NO,
+    KRA_STA,
+    SMS_ID,
+    GrossAnnualIncomeDate,
+    ANNIVERSARY_DATE,
+    Aadhar_Issue_Date,
+    AadharCard
+FROM
+    CLIENT_DETAILS
+WHERE 1<>1
+union all
+SELECT
+	top 10
+	'active' as Active_Inactive,
+    CLIENT_ID,
+    SEX,
+    BIRTH_DATE,
+    MARITAL_STATUS,
+    NATIONALITY,
+    RESIDENTIAL_STATUS,
+    CATEGORY,
+    MOBILE_NO,
+    EMAIL_ID,
+    CITY,
+    STATE,
+    COUNTRY,
+    PIN_CODE,
+    RESI_ADDRESS,
+    OCCUPATION,
+    OCCUPATION_field,
+    ANNUAL_INCOME,
+    PAN_NO,
+    PASSPORT_NO,
+    PASSPORT_EXPIRY_DATE,
+    PASSPORT_ISSUED_PLACE,
+    DRIVING_LICENSE,
+    DRIVING_LICENSE_ISSUED_DATE,
+    DRIVING_LICENSE_ISSUED_PLACE,
+    Net_Worth,
+    Net_Worth_Date,
+    PORTFOLIO_MKT_VALUE,
+    OTHER_BROKER,
+    Fatca_Country,
+    Fatca_Declaration,
+    Fatca_Date,
+    NRI_TYPE,
+    NRI_PSI_NO,
+    KRA_STA,
+    SMS_ID,
+    GrossAnnualIncomeDate,
+    ANNIVERSARY_DATE,
+    Aadhar_Issue_Date,
+    AadharCard
+FROM
+    CLIENT_DETAILS
+WHERE
+    CLIENT_ID IN (
+        SELECT
+            ACCOUNTCODE
+        FROM
+            FA_TRANSACTIONS
+        GROUP BY
+            ACCOUNTCODE
+    )
+union all
+SELECT
+	'inactive' as Active_Inactive,
+    CLIENT_ID,
+    SEX,
+    BIRTH_DATE,
+    MARITAL_STATUS,
+    NATIONALITY,
+    RESIDENTIAL_STATUS,
+    CATEGORY,
+    MOBILE_NO,
+    EMAIL_ID,
+    CITY,
+    STATE,
+    COUNTRY,
+    PIN_CODE,
+    RESI_ADDRESS,
+    OCCUPATION,
+    OCCUPATION_field,
+    ANNUAL_INCOME,
+    PAN_NO,
+    PASSPORT_NO,
+    PASSPORT_EXPIRY_DATE,
+    PASSPORT_ISSUED_PLACE,
+    DRIVING_LICENSE,
+    DRIVING_LICENSE_ISSUED_DATE,
+    DRIVING_LICENSE_ISSUED_PLACE,
+    Net_Worth,
+    Net_Worth_Date,
+    PORTFOLIO_MKT_VALUE,
+    OTHER_BROKER,
+    Fatca_Country,
+    Fatca_Declaration,
+    Fatca_Date,
+    NRI_TYPE,
+    NRI_PSI_NO,
+    KRA_STA,
+    SMS_ID,
+    GrossAnnualIncomeDate,
+    ANNIVERSARY_DATE,
+    Aadhar_Issue_Date,
+    AadharCard
+FROM
+    CLIENT_DETAILS
+WHERE
+    CLIENT_ID not IN (
+        SELECT
+            ACCOUNTCODE
+        FROM
+            FA_TRANSACTIONS
+        GROUP BY
+            ACCOUNTCODE
+    )
+
