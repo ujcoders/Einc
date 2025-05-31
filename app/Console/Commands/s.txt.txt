@@ -44,7 +44,6 @@ FROM
 WHERE 1<>1
 union all
 SELECT
-	top 10
 	'active' as Active_Inactive,
     CLIENT_ID,
     SEX,

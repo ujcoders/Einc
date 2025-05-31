@@ -124,6 +124,9 @@ class ProductController extends Controller
     }
     public function sendEmails(Request $request, $id)
     {
+        ini_set('memory_limit', '-1');
+        ini_set('max_execution_time', 0);
+        set_time_limit(0);
         $product = Product::findOrFail($id);
 
         $validator = Validator::make($request->all(), [
@@ -198,6 +201,9 @@ class ProductController extends Controller
     }
     private function extractContactsFromFile($filePath)
     {
+        ini_set('memory_limit', '-1');
+        ini_set('max_execution_time', 0);
+        set_time_limit(0);
         $contacts = [];
         $extension = pathinfo($filePath, PATHINFO_EXTENSION);
 

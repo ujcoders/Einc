@@ -18,7 +18,7 @@ use App\Http\Controllers\ClientRecordsController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -48,3 +48,13 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__ . '/auth.php';
+
+
+
+// Route::get('/register', function () {
+//     return redirect('/login');
+// })->name('register');
+
+// Route::post('/register', function () {
+//     abort(403, 'Registration disabled');
+// });

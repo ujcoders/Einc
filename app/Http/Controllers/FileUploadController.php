@@ -21,11 +21,17 @@ class FileUploadController extends Controller
         set_time_limit(0);
 
         $request->validate([
-            'upload_file' => 'required|file|mimes:csv,xlsx|max:5120',
+            'upload_file' => 'required|file|mimes:csv,xlsx|max:512000000000',
         ]);
 
         $file = $request->file('upload_file');
-        $data = Excel::toArray([], $file)[0];
+        $filename = 'client_data_' . now()->format('Ymd_His') . '.' . $file->getClientOriginalExtension();
+        $destinationPath = public_path('uploads');
+        $file->move($destinationPath, $filename);
+
+        $fullPath = $destinationPath . '/' . $filename;
+
+        $data = Excel::toArray([], $fullPath)[0]; // <--- this is the key fix
 
         $headers = array_map('strtoupper', array_map('trim', $data[0]));
         unset($data[0]);
