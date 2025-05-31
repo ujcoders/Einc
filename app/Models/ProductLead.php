@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductLead extends Model
 {
-    use HasFactory;
+    protected $fillable = ['product_id', 'name', 'email', 'phone', 'source', 'notes'];
 }

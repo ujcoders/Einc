@@ -73,10 +73,10 @@
 </head>
 <body>
     <div class="container">
-        {{-- <div class="logo">
+        <div class="logo">
             <img src="https://i.postimg.cc/BQBDzhS7/images.png" alt="Dhan Logo">
         </div>
-        <img src="https://i.postimg.cc/zGyP0kxH/Whats-App-Image-2025-05-26-at-4-35-49-PM.jpg" alt="Dhan Logo"> --}}
+        <img src="https://i.postimg.cc/zGyP0kxH/Whats-App-Image-2025-05-26-at-4-35-49-PM.jpg" alt="Dhan Logo">
         <h2>🌟 Unlock Your Financial Future with Dhan! 🌟</h2>
 
         <p>

@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductEmailLog extends Model
 {
-    use HasFactory;
+    protected $fillable = ['product_id', 'recipient_email', 'subject', 'body', 'sent_at'];
 }
