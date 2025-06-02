@@ -50,6 +50,7 @@
         }
         table.dataTable tbody tr:hover {
             background-color: #333 !important;
+            background-color: #2563eb !important;
         }
         .dataTables_wrapper .dataTables_paginate .paginate_button {
             background-color: #333 !important;
@@ -78,6 +79,10 @@
             border: none !important;
             border-radius: 4px !important;
             padding: 3px !important;
+        }
+        #clientrecords-table_info{
+             /* background-color: #2563eb !important; */
+            color: white !important;
         }
     </style>
 
@@ -109,16 +114,41 @@
                 orderCellsTop: true,
                 order: [[0, 'desc']],
                 colReorder: true,
-                lengthMenu: [ [10, 25, 50, 100], [10, 25, 50, 100] ],
-                dom: 'Bfrtip',
+                lengthMenu: [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"] ],
+                dom: 'lBfrtip',  // <-- length selector added here
                 buttons: [
-                    'copyHtml5',
-                    'excelHtml5',
-                    'csvHtml5',
-                    'pdfHtml5',
-                    'print',
-                    'colvis' // Add column visibility button
-                ],
+                            {
+                                extend: 'copyHtml5',
+                                exportOptions: {
+                                    columns: ':visible'
+                                }
+                            },
+                            {
+                                extend: 'excelHtml5',
+                                exportOptions: {
+                                    columns: ':visible'
+                                }
+                            },
+                            {
+                                extend: 'csvHtml5',
+                                exportOptions: {
+                                    columns: ':visible'
+                                }
+                            },
+                            {
+                                extend: 'pdfHtml5',
+                                exportOptions: {
+                                    columns: ':visible'
+                                }
+                            },
+                            {
+                                extend: 'print',
+                                exportOptions: {
+                                    columns: ':visible'
+                                }
+                            },
+                            'colvis'
+                        ],
                 language: {
                     emptyTable: "No client records found"
                 },

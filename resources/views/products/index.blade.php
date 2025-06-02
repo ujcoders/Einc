@@ -59,6 +59,7 @@
 
         table.dataTable tbody tr:hover {
             background-color: #333 !important;
+            background-color: #2563eb !important;
         }
 
         .dataTables_wrapper .dataTables_paginate .paginate_button {
@@ -91,6 +92,10 @@
             border: none !important;
             border-radius: 4px !important;
             padding: 3px !important;
+        }
+        #products-table_info{
+             /* background-color: #2563eb !important; */
+            color: white !important;
         }
     </style>
 
@@ -138,14 +143,39 @@
         colReorder: true,
         lengthMenu: [ [10, 25, 50, 100], [10, 25, 50, 100] ],
         dom: 'Bfrtip',
-        buttons: [
-            'copyHtml5',
-            'excelHtml5',
-            'csvHtml5',
-            'pdfHtml5',
-            'print',
-            'colvis'
-        ],
+                buttons: [
+                            {
+                                extend: 'copyHtml5',
+                                exportOptions: {
+                                    columns: ':visible'
+                                }
+                            },
+                            {
+                                extend: 'excelHtml5',
+                                exportOptions: {
+                                    columns: ':visible'
+                                }
+                            },
+                            {
+                                extend: 'csvHtml5',
+                                exportOptions: {
+                                    columns: ':visible'
+                                }
+                            },
+                            {
+                                extend: 'pdfHtml5',
+                                exportOptions: {
+                                    columns: ':visible'
+                                }
+                            },
+                            {
+                                extend: 'print',
+                                exportOptions: {
+                                    columns: ':visible'
+                                }
+                            },
+                            'colvis'
+                        ],
         language: {
             emptyTable: "No products found"
         },

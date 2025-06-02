@@ -14,9 +14,9 @@ class ClientDataController extends Controller
 
         $totalBrk = ClientData::distinct('brk')->count('brk');
 
-        $totalActive = ClientData::where('Active_Inactive', 'active')->count();
+        $totalActive = ClientData::where('Active_Inactive', 'active1')->count();
 
-        $totalInactive = ClientData::where('Active_Inactive', 'inactive')->count();
+        $totalInactive = ClientData::where('Active_Inactive', 'in_active')->count();
 
         $clientsPerCity = ClientData::select('CITY', DB::raw('COUNT(*) as total'))
             ->groupBy('CITY')
@@ -38,13 +38,13 @@ class ClientDataController extends Controller
             ->get();
 
         $activeClientsByBrk = ClientData::select('brk', DB::raw('COUNT(*) as total'))
-            ->where('Active_Inactive', 'active')
+            ->where('Active_Inactive', 'active1')
             ->groupBy('brk')
             ->orderByDesc('total')
             ->get();
 
         $inactiveClientsByBrk = ClientData::select('brk', DB::raw('COUNT(*) as total'))
-            ->where('Active_Inactive', 'inactive')
+            ->where('Active_Inactive', 'in_active')
             ->groupBy('brk')
             ->orderByDesc('total')
             ->get();

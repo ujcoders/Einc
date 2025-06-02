@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Schema;
+use DB;
+use Log;
 use App\Models\ClientData;
+use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Schema;
 
 class ClientRecordsController extends Controller
 {
@@ -26,25 +28,35 @@ class ClientRecordsController extends Controller
 
         $query = ClientData::select($columns);
 
-        return DataTables::of($query)
+        $filteredQuery = $query->clone();
+
+        $dataTable = DataTables::of($filteredQuery)
             ->filter(function ($query) use ($request, $columns) {
-                foreach ($columns as $index => $column) {
-                    $searchValue = $request->input("columns.$index.search.value");
-                    if (!empty($searchValue)) {
-                        $query->whereRaw("$column LIKE ?", ["%{$searchValue}%"]);
+                foreach ($request->input('columns', []) as $column) {
+                    $colName = $column['data'] ?? null;
+                    $searchValue = $column['search']['value'] ?? null;
+
+                    if ($colName && in_array($colName, $columns) && !empty($searchValue)) {
+                        $query->where($colName, 'LIKE', "%{$searchValue}%");
                     }
                 }
 
-                // Global search
                 $globalSearch = $request->input('search.value');
                 if (!empty($globalSearch)) {
                     $query->where(function ($q) use ($columns, $globalSearch) {
                         foreach ($columns as $col) {
-                            $q->orWhereRaw("$col LIKE ?", ["%{$globalSearch}%"]);
+                            $q->orWhere($col, 'LIKE', "%{$globalSearch}%");
                         }
                     });
                 }
-            })
-            ->make(true);
+            });
+
+        // 🔍 Log the final SQL
+        // DB::listen(function ($query) {
+        //     Log::info('SQL: ' . $query->sql);
+        //     \Log::info('Bindings: ', $query->bindings);
+        // });
+
+        return $dataTable->make(true);
     }
 }

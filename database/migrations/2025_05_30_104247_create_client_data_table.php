@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id(); // auto-increment ID
             $table->string('Active_Inactive')->nullable();
             $table->string('CLIENT_ID')->nullable();
+            $table->string('CLIENT_NAME')->nullable();
             $table->string('SEX')->nullable();
             $table->date('BIRTH_DATE')->nullable();
             $table->string('MARITAL_STATUS')->nullable();

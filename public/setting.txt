@@ -1,0 +1,7 @@
+@echo off
+:loop
+echo Starting Laravel queue worker...
+php -d memory_limit=-1 artisan queue:work --timeout=0 --sleep=3 --tries=3
+echo Queue worker stopped. Restarting in 5 seconds...
+timeout /t 5
+goto loop

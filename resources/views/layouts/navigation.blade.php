@@ -79,6 +79,18 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('clientrecords.index')" :active="request()->routeIs('clientrecords.index')">
+                {{ __('Client Records') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('products.index')" :active="request()->routeIs('products.*')">
+                {{ __('Products') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('file-upload.show')" :active="request()->routeIs('file-upload.show')">
+                {{ __('File Upload') }}
+            </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->

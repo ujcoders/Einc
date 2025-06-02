@@ -32,10 +32,12 @@ class ProductController extends Controller
 
         return DataTables::of($query)
             ->filter(function ($query) use ($request, $columns) {
-                foreach ($columns as $index => $column) {
-                    $searchValue = $request->input("columns.$index.search.value");
-                    if (!empty($searchValue)) {
-                        $query->whereRaw("$column LIKE ?", ["%{$searchValue}%"]);
+                foreach ($request->input('columns', []) as $column) {
+                    $colName = $column['data'] ?? null;
+                    $searchValue = $column['search']['value'] ?? null;
+
+                    if ($colName && in_array($colName, $columns) && !empty($searchValue)) {
+                        $query->where($colName, 'LIKE', "%{$searchValue}%");
                     }
                 }
 
@@ -43,7 +45,7 @@ class ProductController extends Controller
                 if (!empty($globalSearch)) {
                     $query->where(function ($q) use ($columns, $globalSearch) {
                         foreach ($columns as $col) {
-                            $q->orWhereRaw("$col LIKE ?", ["%{$globalSearch}%"]);
+                            $q->orWhere($col, 'LIKE', "%{$globalSearch}%");
                         }
                     });
                 }
@@ -179,6 +181,7 @@ class ProductController extends Controller
                     'body' => $request->input('body'),
                     'sent_at' => now(),
                 ]);
+                sleep(3);
             } catch (\Exception $e) {
                 $failedEmails[] = [
                     'email' => $email,
@@ -242,5 +245,19 @@ class ProductController extends Controller
         }
 
         return $contacts;
+    }
+    public function campaignReport($id)
+    {
+        $product = Product::findOrFail($id);
+
+        $emailLogs = ProductEmailLog::where('product_id', $id)
+            ->orderBy('sent_at', 'desc')
+            ->paginate(20);
+
+        $leads = ProductLead::where('product_id', $id)
+            ->orderBy('created_at', 'desc')
+            ->paginate(20);
+
+        return view('products.campaign_report', compact('product', 'emailLogs', 'leads'));
     }
 }

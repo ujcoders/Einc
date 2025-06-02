@@ -1,151 +1,95 @@
-SELECT
-	'active' as Active_Inactive,
-    CLIENT_ID,
-    SEX,
-    BIRTH_DATE,
-    MARITAL_STATUS,
-    NATIONALITY,
-    RESIDENTIAL_STATUS,
-    CATEGORY,
-    MOBILE_NO,
-    EMAIL_ID,
-    CITY,
-    STATE,
-    COUNTRY,
-    PIN_CODE,
-    RESI_ADDRESS,
-    OCCUPATION,
-    OCCUPATION_field,
-    ANNUAL_INCOME,
-    PAN_NO,
-    PASSPORT_NO,
-    PASSPORT_EXPIRY_DATE,
-    PASSPORT_ISSUED_PLACE,
-    DRIVING_LICENSE,
-    DRIVING_LICENSE_ISSUED_DATE,
-    DRIVING_LICENSE_ISSUED_PLACE,
-    Net_Worth,
-    Net_Worth_Date,
-    PORTFOLIO_MKT_VALUE,
-    OTHER_BROKER,
-    Fatca_Country,
-    Fatca_Declaration,
-    Fatca_Date,
-    NRI_TYPE,
-    NRI_PSI_NO,
-    KRA_STA,
-    SMS_ID,
-    GrossAnnualIncomeDate,
-    ANNIVERSARY_DATE,
-    Aadhar_Issue_Date,
-    AadharCard
-FROM
-    CLIENT_DETAILS
-WHERE 1<>1
+SELECT DISTINCT
+    'in_active' AS Active_Inactive,
+    cd.CLIENT_ID,
+    cm.CLIENT_NAME,
+    cd.SEX,
+    cd.BIRTH_DATE,
+    cd.MARITAL_STATUS,
+    cd.NATIONALITY,
+    cd.RESIDENTIAL_STATUS,
+    cd.CATEGORY,
+    cd.MOBILE_NO,
+    cd.EMAIL_ID,
+    cd.CITY,
+    cd.STATE,
+    cd.COUNTRY,
+    cd.PIN_CODE,
+    cd.RESI_ADDRESS,
+    cd.OCCUPATION,
+    cd.OCCUPATION_field,
+    cd.ANNUAL_INCOME,
+    cd.PAN_NO,
+    cd.PASSPORT_NO,
+    cd.PASSPORT_EXPIRY_DATE,
+    cd.PASSPORT_ISSUED_PLACE,
+    cd.DRIVING_LICENSE,
+    cd.DRIVING_LICENSE_ISSUED_DATE,
+    cd.DRIVING_LICENSE_ISSUED_PLACE,
+    cd.Net_Worth,
+    cd.Net_Worth_Date,
+    cd.PORTFOLIO_MKT_VALUE,
+    cd.OTHER_BROKER,
+    cd.Fatca_Country,
+    cd.Fatca_Declaration,
+    cd.Fatca_Date,
+    cd.NRI_TYPE,
+    cd.NRI_PSI_NO,
+    cd.KRA_STA,
+    cd.SMS_ID,
+    cd.GrossAnnualIncomeDate,
+    cd.ANNIVERSARY_DATE,
+    cd.Aadhar_Issue_Date,
+    cd.AadharCard
+FROM CLIENT_DETAILS cd
+JOIN CLIENT_MASTER cm ON cd.CLIENT_ID = cm.CLIENT_NAME
+WHERE cd.CLIENT_ID not IN (
+    SELECT DISTINCT ACCOUNTCODE FROM FA_TRANSACTIONS
+)
 union all
-SELECT
-	'active' as Active_Inactive,
-    CLIENT_ID,
-    SEX,
-    BIRTH_DATE,
-    MARITAL_STATUS,
-    NATIONALITY,
-    RESIDENTIAL_STATUS,
-    CATEGORY,
-    MOBILE_NO,
-    EMAIL_ID,
-    CITY,
-    STATE,
-    COUNTRY,
-    PIN_CODE,
-    RESI_ADDRESS,
-    OCCUPATION,
-    OCCUPATION_field,
-    ANNUAL_INCOME,
-    PAN_NO,
-    PASSPORT_NO,
-    PASSPORT_EXPIRY_DATE,
-    PASSPORT_ISSUED_PLACE,
-    DRIVING_LICENSE,
-    DRIVING_LICENSE_ISSUED_DATE,
-    DRIVING_LICENSE_ISSUED_PLACE,
-    Net_Worth,
-    Net_Worth_Date,
-    PORTFOLIO_MKT_VALUE,
-    OTHER_BROKER,
-    Fatca_Country,
-    Fatca_Declaration,
-    Fatca_Date,
-    NRI_TYPE,
-    NRI_PSI_NO,
-    KRA_STA,
-    SMS_ID,
-    GrossAnnualIncomeDate,
-    ANNIVERSARY_DATE,
-    Aadhar_Issue_Date,
-    AadharCard
-FROM
-    CLIENT_DETAILS
-WHERE
-    CLIENT_ID IN (
-        SELECT
-            ACCOUNTCODE
-        FROM
-            FA_TRANSACTIONS
-        GROUP BY
-            ACCOUNTCODE
-    )
-union all
-SELECT
-	'inactive' as Active_Inactive,
-    CLIENT_ID,
-    SEX,
-    BIRTH_DATE,
-    MARITAL_STATUS,
-    NATIONALITY,
-    RESIDENTIAL_STATUS,
-    CATEGORY,
-    MOBILE_NO,
-    EMAIL_ID,
-    CITY,
-    STATE,
-    COUNTRY,
-    PIN_CODE,
-    RESI_ADDRESS,
-    OCCUPATION,
-    OCCUPATION_field,
-    ANNUAL_INCOME,
-    PAN_NO,
-    PASSPORT_NO,
-    PASSPORT_EXPIRY_DATE,
-    PASSPORT_ISSUED_PLACE,
-    DRIVING_LICENSE,
-    DRIVING_LICENSE_ISSUED_DATE,
-    DRIVING_LICENSE_ISSUED_PLACE,
-    Net_Worth,
-    Net_Worth_Date,
-    PORTFOLIO_MKT_VALUE,
-    OTHER_BROKER,
-    Fatca_Country,
-    Fatca_Declaration,
-    Fatca_Date,
-    NRI_TYPE,
-    NRI_PSI_NO,
-    KRA_STA,
-    SMS_ID,
-    GrossAnnualIncomeDate,
-    ANNIVERSARY_DATE,
-    Aadhar_Issue_Date,
-    AadharCard
-FROM
-    CLIENT_DETAILS
-WHERE
-    CLIENT_ID not IN (
-        SELECT
-            ACCOUNTCODE
-        FROM
-            FA_TRANSACTIONS
-        GROUP BY
-            ACCOUNTCODE
-    )
-
+SELECT DISTINCT
+    'active1' AS Active_Inactive,
+    cd.CLIENT_ID,
+    cm.CLIENT_NAME,
+    cd.SEX,
+    cd.BIRTH_DATE,
+    cd.MARITAL_STATUS,
+    cd.NATIONALITY,
+    cd.RESIDENTIAL_STATUS,
+    cd.CATEGORY,
+    cd.MOBILE_NO,
+    cd.EMAIL_ID,
+    cd.CITY,
+    cd.STATE,
+    cd.COUNTRY,
+    cd.PIN_CODE,
+    cd.RESI_ADDRESS,
+    cd.OCCUPATION,
+    cd.OCCUPATION_field,
+    cd.ANNUAL_INCOME,
+    cd.PAN_NO,
+    cd.PASSPORT_NO,
+    cd.PASSPORT_EXPIRY_DATE,
+    cd.PASSPORT_ISSUED_PLACE,
+    cd.DRIVING_LICENSE,
+    cd.DRIVING_LICENSE_ISSUED_DATE,
+    cd.DRIVING_LICENSE_ISSUED_PLACE,
+    cd.Net_Worth,
+    cd.Net_Worth_Date,
+    cd.PORTFOLIO_MKT_VALUE,
+    cd.OTHER_BROKER,
+    cd.Fatca_Country,
+    cd.Fatca_Declaration,
+    cd.Fatca_Date,
+    cd.NRI_TYPE,
+    cd.NRI_PSI_NO,
+    cd.KRA_STA,
+    cd.SMS_ID,
+    cd.GrossAnnualIncomeDate,
+    cd.ANNIVERSARY_DATE,
+    cd.Aadhar_Issue_Date,
+    cd.AadharCard
+FROM CLIENT_DETAILS cd
+JOIN CLIENT_MASTER cm ON cd.CLIENT_ID = cm.CLIENT_NAME
+WHERE cd.CLIENT_ID IN (
+    SELECT DISTINCT ACCOUNTCODE FROM FA_TRANSACTIONS
+)

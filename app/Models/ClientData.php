@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ClientData extends Model
 {
     protected $fillable = [
-        'Active_Inactive', 'CLIENT_ID', 'SEX', 'BIRTH_DATE', 'MARITAL_STATUS',
+        'Active_Inactive', 'CLIENT_ID',"CLIENT_NAME", 'SEX', 'BIRTH_DATE', 'MARITAL_STATUS',
         'NATIONALITY', 'RESIDENTIAL_STATUS', 'CATEGORY', 'MOBILE_NO', 'EMAIL_ID',
         'CITY', 'STATE', 'COUNTRY', 'PIN_CODE', 'RESI_ADDRESS', 'OCCUPATION',
         'OCCUPATION_field', 'ANNUAL_INCOME', 'PAN_NO', 'PASSPORT_NO',

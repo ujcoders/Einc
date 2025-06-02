@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\ClientData;
 use Maatwebsite\Excel\Facades\Excel;
 use PhpOffice\PhpSpreadsheet\Shared\Date as ExcelDate;
+use App\Jobs\ImportClientDataJob;
 
 class FileUploadController extends Controller
 {
@@ -42,6 +43,7 @@ class FileUploadController extends Controller
             ClientData::create([
                 'Active_Inactive' => $clientData['ACTIVE_INACTIVE'] ?? null,
                 'CLIENT_ID' => $clientData['CLIENT_ID'] ?? null,
+                'CLIENT_NAME' => $clientData['CLIENT_NAME'] ?? null,
                 'SEX' => $clientData['SEX'] ?? null,
                 'BIRTH_DATE' => $this->convertExcelDate($clientData['BIRTH_DATE'] ?? null),
                 'MARITAL_STATUS' => $clientData['MARITAL_STATUS'] ?? null,
@@ -84,8 +86,29 @@ class FileUploadController extends Controller
             ]);
         }
 
-        return back()->with('success', 'File uploaded and data imported successfully!');
+        return redirect()->route('dashboard')->with('success', 'File uploaded and data imported successfully!');
     }
+    // public function upload(Request $request)
+    // {
+    //     ini_set('memory_limit', '-1');
+    //     ini_set('max_execution_time', 0);
+    //     set_time_limit(0);
+    //     $request->validate([
+    //         'upload_file' => 'required|file|mimes:csv,xlsx|max:512000000000',
+    //     ]);
+
+    //     $file = $request->file('upload_file');
+    //     $filename = 'client_data_' . now()->format('Ymd_His') . '.' . $file->getClientOriginalExtension();
+    //     $destinationPath = public_path('uploads');
+    //     $file->move($destinationPath, $filename);
+
+    //     $fullPath = $destinationPath . '/' . $filename;
+
+    //     // Dispatch the job
+    //     ImportClientDataJob::dispatch($fullPath, $request->input('brk'));
+
+    //     return redirect()->route('dashboard')->with('success', 'File upload started, data will be imported in background.');
+    // }
 
     private function convertExcelDate($value)
     {

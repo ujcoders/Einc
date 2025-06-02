@@ -29,16 +29,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/client-records/data', [ClientRecordsController::class, 'data'])->name('clientrecords.data');
 
     Route::prefix('products')->name('products.')->group(function () {
-    Route::get('/', [ProductController::class, 'index'])->name('index');
-    Route::get('/data', [ProductController::class, 'data'])->name('data');
-    Route::get('/create', [ProductController::class, 'create'])->name('create');
-    Route::post('/store', [ProductController::class, 'store'])->name('store');
-    Route::get('/{id}/dashboard', [ProductController::class, 'show'])->name('dashboard');
-    Route::get('/{id}/edit', [ProductController::class, 'edit'])->name('edit');           // Correct here
-    Route::put('/{id}', [ProductController::class, 'update'])->name('update');            // Correct here
-    Route::delete('/{id}', [ProductController::class, 'destroy'])->name('destroy');      // Correct here
-    Route::post('/{product}/send-emails', [ProductController::class, 'sendEmails'])->name('sendEmails');
-});
+        Route::get('/', [ProductController::class, 'index'])->name('index');
+        Route::get('/data', [ProductController::class, 'data'])->name('data');
+        Route::get('/create', [ProductController::class, 'create'])->name('create');
+        Route::post('/store', [ProductController::class, 'store'])->name('store');
+        Route::get('/{id}/dashboard', [ProductController::class, 'show'])->name('dashboard');
+        Route::get('/{id}/edit', [ProductController::class, 'edit'])->name('edit');           // Correct here
+        Route::put('/{id}', [ProductController::class, 'update'])->name('update');            // Correct here
+        Route::delete('/{id}', [ProductController::class, 'destroy'])->name('destroy');      // Correct here
+        Route::post('/{product}/send-emails', [ProductController::class, 'sendEmails'])->name('sendEmails');
+        Route::get('/{id}/campaign-report', [ProductController::class, 'campaignReport'])->name('campaign_report');
+
+    });
 });
 
 Route::middleware('auth')->group(function () {
